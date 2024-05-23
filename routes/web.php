@@ -13,9 +13,7 @@ Route::get('/login', function () {
 //
 Route::post('/login', [LoginPController::class, 'authenticate'])->name('login');
 //
-Route::get('/home', function () {
-    return view('home'); // Make sure the view 'home' exists in your resources/views directory
-})->name('home')->middleware('auth');
+
 Route::get('/', function () {
     return view('LoginForm');
 });

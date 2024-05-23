@@ -99,11 +99,10 @@ background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAA
         <div class="login-form">
         <form action="{{ route('login') }}" method="POST" class="form" id="loginForm">
             @csrf
-            <input type="text" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Mot de passe" required>
-                <input type="submit" value="Se connecter" >
-                
-                <a href="#" class="forgot-password">Mot de passe <span class="oublier">oublié ?</span></a>
+            <input type="text" name="email" placeholder="Email" required autocomplete="email">
+            <input type="password" name="password" placeholder="Mot de passe" required autocomplete="current-password">
+            <input type="submit" value="Se connecter">
+            <a href="#" class="forgot-password">Mot de passe <span class="oublier">oublié ?</span></a>
         </form>
     </div>
   </div>

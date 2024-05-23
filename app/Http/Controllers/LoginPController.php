@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Professeur;
+
 class LoginPController extends Controller
 {
     public function authenticate(Request $request)
@@ -11,10 +14,10 @@ class LoginPController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-       
+        
         $prof = Professeur::where('email', $request->email)->first();
 
-        if ($prof && Hash::check($request->password, $prof->password)) {
+        if ($prof && $request->password === $prof->password) {
             Auth::login($prof);
             $request->session()->regenerate();
             return redirect()->intended('home');

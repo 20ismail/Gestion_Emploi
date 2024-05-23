@@ -143,7 +143,7 @@
 							   <li class="dropdown nav-item">
 								<a class="nav-link" href="#" data-toggle="dropdown">
 									
-                                    <img id="profileimage" src="{{ Auth::user()->profileimage ? asset('storage/' . Auth::user()->profileimage) : asset('assets/icon.jpg') }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                                    <img id="profileimage" src="{{ Auth::check() && Auth::user()->profileimage ? asset('storage/' . Auth::user()->profileimage) : asset('assets/icon.jpg') }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
 
 
 								  </a>
@@ -191,7 +191,7 @@
                         
 							<div class="container">
 								<div id="imageContainer">
-									<img id="profileimage" src="{{ asset('storage/' . Auth::user()->profileimage) }}" class="profile-image">
+									<img id="profileimage" src="{{ Auth::check() ? asset('storage/' . Auth::user()->profileimage ?? 'assets/icon.jpg') : asset('assets/icon.jpg') }}" class="profile-image">
 								</div>
 								<div class="information-card">
 									<div class="flex-container">
@@ -200,10 +200,10 @@
 											<button class="btn-modifier"><i class="fa-regular fa-pen-to-square"></i>&nbsp;&nbsp;Modifier </button>
 										</a>
 									</div>
-									<p> Nom: {{ Auth::user()->nom }}</p>
-                                    <p> Prenom: {{ Auth::user()->prenom }}</p>
-									<p> Email: {{ Auth::user()->email }} </p>
-                                    <p> Matiere: {{ Auth::user()->matiere }}</p>
+									<p> Nom: {{ optional(Auth::user())->nom }}</p>
+<p> Prenom: {{ optional(Auth::user())->prenom }}</p>
+<p> Email: {{ optional(Auth::user())->email }} </p>
+<p> Matiere: {{ optional(Auth::user())->matiere }}</p>
 
 								   
 								</div>

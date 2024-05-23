@@ -12,7 +12,7 @@ class ProfesseurController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

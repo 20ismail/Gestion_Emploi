@@ -1,0 +1,33 @@
+body {
+    font-family: sans-serif;
+  }
+  
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-color: #f5f5f5;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color:#102C57;
+  }
+  
+  
+  .logo {
+    max-width: 100px; 
+  }
+  
+  .col-md-6{
+    max-width: 50%; 
+  }
+  .connect {
+    display: flex; /* Enable flexbox layout for the container */
+    justify-content: flex-end; /* Align items to the right end */
+  }
+  
+  .connect .btn {
+    margin-left: auto; /* Add margin to the left to push the button to the right */
+  }
+  

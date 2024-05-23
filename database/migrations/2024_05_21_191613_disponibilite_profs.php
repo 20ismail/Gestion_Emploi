@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('idProf');
             $table->unsignedBigInteger('idSemestre');
-            $table->date('jour');
-            $table->time('heureDebut');
-            $table->time('heureFin');
-            $table->string('periode');
+            $table->string('semestre')->change();
+            $table->string('lundi')->nullable()->change();
+            $table->string('mardi')->nullable()->change();
+            $table->string('mercredi')->nullable()->change();
+            $table->string('jeudi')->nullable()->change();
+            $table->string('vendredi')->nullable()->change();
+            $table->string('samedi')->nullable()->change();
             $table->timestamps();
 
             // Foreign key constraints

@@ -1,0 +1,110 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Assure que le contenu reste centré verticalement */
+    background-color: #EADBC8; /* Couleur de fond de la page */
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will center the children horizontally in the container */
+    justify-content: center; /* This will center the children vertically if needed */
+    max-width: 350px;
+    background: #DAC0A3;
+    border-radius: 40px;
+    padding: 25px 55px;
+    border: 5px solid #DAC0A3;
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
+    margin: 20px;
+}
+  
+.heading {
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  color: #102C57;
+  margin-top: 0; /* Remove top margin if any */
+  margin-bottom: 20px; /* Space between heading and next element */
+  font-weight: bold; /* Makes the text bold */
+}
+  .form .input {
+    width: 90%;
+    background: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 20px;
+    /* margin-top: 20px; */
+    margin-right: 26px;
+    margin-bottom: 15px; /* Added to maintain consistent spacing */
+    box-shadow: #cff0ff 0px 10px 10px -5px;
+    border-inline: 2px solid transparent;
+}
+  
+  .form .input::-moz-placeholder {
+    color: #DAC0A3;
+  }
+  
+  .form .input::placeholder {
+    color:#102C57;
+  }
+  
+  .form .input:focus {
+    outline: none;
+    border-inline: 2px solid #12B1D1;
+  }
+  
+  .form .forgot-password a {
+    color: #102C57; /* Updated link color */
+    padding: 5px;
+    width: 50%;
+    margin: 15px auto;
+  }
+  
+  .form .login-button {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    background: #102C57; /* Updated button background color */
+    color: #EADBC8;
+    padding-block: 15px;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .form .login-button:hover {
+    transform: scale(1.03);
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
+  }
+  
+  .form .login-button:active {
+    transform: scale(0.95);
+    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
+  }
+  
+  /* Image upload section styling */
+  .image-upload {
+    margin-top: 15px;
+  }
+  
+  .image-upload label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .image-upload input[type="file"] {
+    display: none;
+  }
+  
+  .image-upload img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
+  }

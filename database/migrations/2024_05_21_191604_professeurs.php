@@ -17,9 +17,10 @@ return new class extends Migration
                $table->string('prenom');
                $table->string('email')->unique();
                $table->string('numTelephone');
-               $table->string('motDePasse');
+               $table->string('password');
                $table->string('type');
                $table->integer('heuresEnseignementAnnee');
+               $table->text('profileimage')->nullable();
                $table->unsignedBigInteger('idDepartement');
                $table->unsignedBigInteger('idCoordonateur');
                $table->timestamps();

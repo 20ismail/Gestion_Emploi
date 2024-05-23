@@ -12,7 +12,7 @@ class DisponibiliteProfController extends Controller
      */
     public function index()
     {
-        //
+        return view('dispo');
     }
 
     /**

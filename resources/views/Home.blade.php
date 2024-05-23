@@ -22,7 +22,23 @@
        <link rel="stylesheet" href="{{ asset('css/fiche.css') }}">
        <link rel="stylesheet" href="{{ asset('css/hp.css') }}">
        <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+       <style>
+        
+    
+        .profile-type {
+    text-align: center;
+    font-size: 1.4em;
+    color: #102C57;
+    margin-top: 17px;
+    margin-right: 60px;  // Add this line to shift the element to the right by 4px
 
+    font-family: 'Arial', sans-serif;
+    background-color: #DAC0A3;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+    </style>
   </head>
   <body>
   
@@ -191,8 +207,10 @@
                         
 							<div class="container">
 								<div id="imageContainer">
-									<img id="profileimage" src="{{ Auth::check() ? asset('storage/' . Auth::user()->profileimage ?? 'assets/icon.jpg') : asset('assets/icon.jpg') }}" class="profile-image">
+									<img id="profileimage"  src="{{ Auth::check() && Auth::user()->profileimage ? asset('storage/' . Auth::user()->profileimage) : asset('assets/icon.jpg') }}" class="profile-image">
 								</div>
+                                 <p class="profile-type"> Role : {{ optional(Auth::user())->type }} </p>
+
 								<div class="information-card">
 									<div class="flex-container">
 										<p class="inf">information personnelles</p>
@@ -203,7 +221,7 @@
 									<p> Nom: {{ optional(Auth::user())->nom }}</p>
 <p> Prenom: {{ optional(Auth::user())->prenom }}</p>
 <p> Email: {{ optional(Auth::user())->email }} </p>
-<p> Matiere: {{ optional(Auth::user())->matiere }}</p>
+<p> Tel: {{ optional(Auth::user())->numTelephone }} </p>
 
 								   
 								</div>

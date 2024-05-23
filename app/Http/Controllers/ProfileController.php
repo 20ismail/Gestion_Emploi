@@ -1,7 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Professeur;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -15,33 +16,34 @@ class ProfileController extends Controller
         $request->validate([
             'email' => 'required|email',
             'profileimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'numTelephone' => 'nullable|numeric',
+            'heuresEnseignementAnnee' => 'nullable|numeric',
         ]);
-        $user = Auth::user();
+        $prof = Auth::user();
         if ($request->hasFile('profileimage')) {
             // Delete the old profile image if it exists
-            if ($user->profileimage) {
-                Storage::disk('public')->delete($user->profileimage);
+            if ($prof->profileimage) {
+                Storage::disk('public')->delete($prof->profileimage);
             }
     
             // Store the new profile image
             $path = $request->file('profileimage')->store('profile', 'public');
-            $user->profileimage = $path;
+            $prof->profileimage = $path;
         }
  
-        $user->nom = $request->nom;
-        $user->prenom = $request->prenom;
-        $user->email = $request->email;
+        $prof->nom = $request->nom;
+        $prof->heuresEnseignementAnnee = $request->heuresEnseignementAnnee;
+        $prof->numTelephone = $request->numTelephone;
+        $prof->prenom = $request->prenom;
+        $prof->email = $request->email;
         if ($request->filled('email')) {
-            $user->email = $request->email;
+            $prof->email = $request->email;
         } else {
-            $user->email = $user->email; 
+            $prof->email = $prof->email; 
         }
-        $user->matiere = implode(',', $request->matiere); 
-
-       
-        $user->save();
-
+        $prof->save();
         return redirect()->route('profile')->with('success', 'Profile updated successfully!');
     }
     
@@ -56,16 +58,16 @@ class ProfileController extends Controller
        ]);
 
        // Get the currently authenticated user
-       $user = Auth::user();
-       Log::info('Authenticated user: ', ['user_id' => $user->id]);
+       $prof = Auth::user();
+       Log::info('Authenticated user: ', ['user_id' => $prof->id]);
 
        // Check if the current password is correct
-       if ($user && $request->current_password == $user->password) {
+       if ($prof && $request->current_password == $prof->password) {
         try {
             // Update the user's password
-            $user->password = $request->new_password;
-            $user->save();
-            Log::info('Password changed successfully for user ID: ' . $user->id);
+            $prof->password = $request->new_password;
+            $prof->save();
+            Log::info('Password changed successfully for user ID: ' . $prof ->id);
  
             // Redirect back with a success message
             return back()->with('success', 'Password changed successfully.');

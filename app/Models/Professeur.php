@@ -1,46 +1,47 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\NewProfesseurNotification;
 
 class Professeur extends Authenticatable
 {
     use HasFactory, Notifiable;
+
     protected $table = 'professeurs';
-    /**
-     * The attributes that are mass assignable.
-     *
-     
-     */
+
     protected $fillable = [
+        'heuresEnseignementAnnee',
+        'image',
         'nom',
         'prenom',
         'email',
         'numTelephone',
         'password',
         'type',
-        'heuresEnseignementAnnee',
-        'profileimage',
-        'idDepartement',
-        'idCoordonateur',
+        'id_admin',
+        'id_departement'
     ];
 
-    /**
-     * Get the departement that owns the professeur.
-     */
-    public function departement()
+    public function admin()
     {
-        return $this->belongsTo(Departement::class, 'idDepartement');
+        return $this->belongsTo(Admin::class, 'id_admin');
     }
 
-    /**
-     * Get the coordonateur that owns the professeur.
-     */
-    public function coordonateur()
+    public function departement()
     {
-        return $this->belongsTo(Cordonateur::class, 'idCoordonateur');
+        return $this->belongsTo(Departement::class, 'id_departement');
     }
+
+    protected static function booted()
+    {
+        static::created(function ($professeur) {
+            \Log::info('New Professeur created: ' . $professeur->nom);
+            \Log::info('Admin: ' . $professeur->admin->nom);
+            $professeur->admin->notify(new NewProfesseurNotification($professeur));
+        });
+    }
+    
 }

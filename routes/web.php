@@ -5,17 +5,17 @@ use App\Http\Controllers\LoginPController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 
-Route::get('/home', function () {
-    return view('home'); // Make sure the view 'home' exists in your resources/views directory
-})->name('home')->middleware('auth');
+Route::get('/Home', function () {
+    return view('Home'); // Make sure the view 'home' exists in your resources/views directory
+})->name('Home')->middleware('auth');
 
 Route::get('/login', function () {
-    return view('LoginForm');  
+    return view('LoginForm');
 })->name('login');
 //
-Route::post('/login', [LoginPController::class, 'authenticate'])->middleware('auth');
+Route::post('/login', [LoginPController::class, 'authenticate']);
 //
-Route::get('/logout', [LogoutController::class, 'index'])->name('logout')->middleware('auth');
+// Route::get('/logout', [LogoutController::class, 'index'])->name('logout')->middleware('auth');
 
 Route::get('/', function () {
     return view('LoginForm');
@@ -52,7 +52,8 @@ Route::middleware(['web'])->group(function () {
 });
 Route::post('/dispo/store', [DisponibiliteProfController::class, 'store'])->name('dispo.store');
 Route::post('/dispo/update', [DisponibiliteProfController::class, 'update'])->name('dispo.update');
+use App\Http\Controllers\ProfesseurController;
 
-
-
-
+Route::post('/professeurs', [ProfesseurController::class, 'store']);
+use App\Http\Controllers\ModuleSelectController;
+Route::post('/module/store', [ModuleSelectController::class, 'store'])->name('module.store');

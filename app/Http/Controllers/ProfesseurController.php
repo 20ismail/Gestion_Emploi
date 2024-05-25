@@ -2,64 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Professeur;
 use Illuminate\Http\Request;
+use App\Models\Professeur;
+use App\Notifications\NewProfesseurNotification;
 
 class ProfesseurController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        // Validate the request data
+        $validatedData = $request->validate([
+            'heuresEnseignementAnnee' => 'required|integer',
+            'image' => 'nullable|string',
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|email|unique:professeurs,email',
+            'numTelephone' => 'required|string|max:20',
+            'password' => 'required|string|min:8',
+            'type' => 'required|string',
+            'id_admin' => 'required|exists:administrateurs,id',
+            'id_departement' => 'required|exists:departements,id',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Professeur $professeur)
-    {
-        //
-    }
+        // Create the new Professeur
+        $professeur = Professeur::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Professeur $professeur)
-    {
-        //
-    }
+        // Notify the admin
+        $professeur->admin->notify(new NewProfesseurNotification($professeur));
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Professeur $professeur)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Professeur $professeur)
-    {
-        //
+        return response()->json(['message' => 'Professeur created and notification sent.'], 201);
     }
 }

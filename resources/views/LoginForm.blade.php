@@ -104,7 +104,17 @@ background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAA
             <input type="submit" value="Se connecter">
             <a href="#" class="forgot-password">Mot de passe <span class="oublier">oublié ?</span></a>
         </form>
-    </div>
-  </div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</div>
+</div>
+
 </body>
 </html>

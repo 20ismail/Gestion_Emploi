@@ -15,22 +15,22 @@ class ProfileController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'profileimage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'numTelephone' => 'nullable|numeric',
             'heuresEnseignementAnnee' => 'nullable|numeric',
         ]);
         $prof = Auth::user();
-        if ($request->hasFile('profileimage')) {
+        if ($request->hasFile('image')) {
             // Delete the old profile image if it exists
-            if ($prof->profileimage) {
-                Storage::disk('public')->delete($prof->profileimage);
+            if ($prof->image) {
+                Storage::disk('public')->delete($prof->image);
             }
     
             // Store the new profile image
-            $path = $request->file('profileimage')->store('profile', 'public');
-            $prof->profileimage = $path;
+            $path = $request->file('image')->store('profile', 'public');
+            $prof->image = $path;
         }
  
         $prof->nom = $request->nom;

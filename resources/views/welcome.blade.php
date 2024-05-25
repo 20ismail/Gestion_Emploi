@@ -1,140 +1,308 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <title>Disponobilite</title>
+		<link rel="stylesheet" href="C:\Users\user\Desktop\main\css\bootstrap.min.css">
+	    <!----css3---->
+        <link rel="stylesheet" href="C:\Users\user\Desktop\main\css\custom.css">
+        
+		
+		<!--google fonts -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	
+	
+	   <!--google material icon-->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
+      
+	  
+	  <link rel="stylesheet" href="C:\Users\user\Desktop\main\main\modul.css">
 
-        <title>Laravel</title>
+  </head>
+  <body>
+  
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        <!-- Styles -->
-        <style>
-            /* ! tailwindcss v3.2.4 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Figtree, sans-serif;font-feature-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::-webkit-backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }.relative{position:relative}.mx-auto{margin-left:auto;margin-right:auto}.mx-6{margin-left:1.5rem;margin-right:1.5rem}.ml-4{margin-left:1rem}.mt-16{margin-top:4rem}.mt-6{margin-top:1.5rem}.mt-4{margin-top:1rem}.-mt-px{margin-top:-1px}.mr-1{margin-right:0.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.h-16{height:4rem}.h-7{height:1.75rem}.h-6{height:1.5rem}.h-5{height:1.25rem}.min-h-screen{min-height:100vh}.w-auto{width:auto}.w-16{width:4rem}.w-7{width:1.75rem}.w-6{width:1.5rem}.w-5{width:1.25rem}.max-w-7xl{max-width:80rem}.shrink-0{flex-shrink:0}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.self-center{align-self:center}.rounded-lg{border-radius:0.5rem}.rounded-full{border-radius:9999px}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity))}.bg-dots-darker{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E")}.from-gray-700\/50{--tw-gradient-from:rgb(55 65 81 / 0.5);--tw-gradient-to:rgb(55 65 81 / 0);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0);--tw-gradient-stops:var(--tw-gradient-from), transparent, var(--tw-gradient-to)}.bg-center{background-position:center}.stroke-red-500{stroke:#ef4444}.stroke-gray-400{stroke:#9ca3af}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.font-semibold{font-weight:600}.leading-relaxed{line-height:1.625}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-gray-500\/20{--tw-shadow-color:rgb(107 114 128 / 0.2);--tw-shadow:var(--tw-shadow-colored)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-red-500 *::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.selection\:bg-red-500::selection{--tw-bg-opacity:1;background-color:rgb(239 68 68 / var(--tw-bg-opacity))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity))}.focus\:rounded-sm:focus{border-radius:0.125rem}.focus\:outline:focus{outline-style:solid}.focus\:outline-2:focus{outline-width:2px}.focus\:outline-red-500:focus{outline-color:#ef4444}.group:hover .group-hover\:stroke-gray-600{stroke:#4b5563}@media (prefers-reduced-motion: no-preference){.motion-safe\:hover\:scale-\[1\.01\]:hover{--tw-scale-x:1.01;--tw-scale-y:1.01;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}}@media (prefers-color-scheme: dark){.dark\:bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity))}.dark\:bg-gray-800\/50{background-color:rgb(31 41 55 / 0.5)}.dark\:bg-red-800\/20{background-color:rgb(153 27 27 / 0.2)}.dark\:bg-dots-lighter{background-image:url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E")}.dark\:bg-gradient-to-bl{background-image:linear-gradient(to bottom left, var(--tw-gradient-stops))}.dark\:stroke-gray-600{stroke:#4b5563}.dark\:text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.dark\:shadow-none{--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.dark\:ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.dark\:ring-inset{--tw-ring-inset:inset}.dark\:ring-white\/5{--tw-ring-color:rgb(255 255 255 / 0.05)}.dark\:hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity))}.group:hover .dark\:group-hover\:stroke-gray-400{stroke:#9ca3af}}@media (min-width: 640px){.sm\:fixed{position:fixed}.sm\:top-0{top:0px}.sm\:right-0{right:0px}.sm\:ml-0{margin-left:0px}.sm\:flex{display:flex}.sm\:items-center{align-items:center}.sm\:justify-center{justify-content:center}.sm\:justify-between{justify-content:space-between}.sm\:text-left{text-align:left}.sm\:text-right{text-align:right}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:gap-8{gap:2rem}.lg\:p-8{padding:2rem}}
-        </style>
-    </head>
-    <body class="antialiased">
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+<div class="wrapper">
+     
+	  <div class="body-overlay"></div>
+	 
+	 <!-------sidebar--design------------>
+	 
+	 <div id="sidebar">
+	    <div class="sidebar-header">
+		   <!-- <h3><img style="padding-top: 10px; border-radius: 10%;" src="https://img.freepik.com/premium-photo/businessman-portrait-ai-generated-image_268835-5686.jpg" class="img-fluid"/>
+			<span>Mr.hourri<br></span>
+			<h6 style="padding-left:60px;size: 10px !important;">Admin</h6> -->
+		<h3>	
+			<img  src="data:image/png;base64,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" style="border-radius: 25px;" class="img-fluid"/>
+			<span>EST SAFI</span>
+		</h3>
+		
+		</div>
+		<ul class="list-unstyled component m-2">
+		  <li class="active">
+		  <!-- <a href="#" class="dashboard"><span <i class="fa-solid fa-house"></i>&nbsp;&nbsp;&nbsp;
+			</span>Home </a>
+		  </li> -->
+		  
+		  <li class="">
+			<a href="index.html" class=""><span  <i  class="fa-solid fa-house"></i>&nbsp;&nbsp;&nbsp;
+			</span>Accueil </a>
+			</li>
+		  <li class="">
+				<a href="profile.html" class=""><span <i class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
+				</span>Profile </a>
+				</li>
+	
+		   
+		  <li class="">
+		  <a href="dispo.html" class=""><span <i class="fa-solid fa-school"></i>&nbsp;&nbsp;&nbsp;
+		  </span>Disponibilite </a>
+		  </li>
+		  
+			<li class="">
+				<a href="module.html" class=""><span <i class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
+				</span>Module </a>
+				</li>
+			<li class="">
+			    <a href="EmploiTemps.html""><span <i class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
+				</span>Emploi du temps</a>
+				</li>	
+					<li class="">
+						<a href="signup.html" class=""><span <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;&nbsp;
+						</span>Se deconnercter</a>
+						</li>
+		 
+		
+		</ul>
+	 </div>
+	 
+   <!-------sidebar--design- close----------->
+   
+   
+   
+      <!-------page-content start----------->
+   
+      <div id="content">
+	     
+		  <!------top-navbar-start-----------> 
+		     
+		  <div class="top-navbar">
+		     <div class="xd-topbar">
+			     <div class="row">
+				     <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+					    <div class="xp-menubar">
+						    <span class="material-icons text-white">signal_cellular_alt</span>
+						</div>
+					 </div>
+					 
+					 <div class="col-md-5 col-lg-3 order-3 order-md-2">
+					     <div class="xp-searchbar">
+						     <form>
+							    <div class="input-group">
+								  <input type="search" class="form-control"
+								  placeholder="Search">
+								  <div class="input-group-append">
+								     <button class="btn" type="submit" id="button-addon2">Go
+									 </button>
+								  </div>
+								</div>
+								<script>
+									document.querySelector('.btn').addEventListener('click', function() {
+                                     var inputValue = document.querySelector('.form-control').value;
+                                  // Implement search functionality here
+                                     console.log('Searching for:', inputValue);
+                                       });
+								</script>
+							 </form>
+						 </div>
+					 </div>
+					 
+					 
+					 <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+					     <div class="xp-profilebar text-right">
+						    <nav class="navbar p-0">
+							   <ul class="nav navbar-nav flex-row ml-auto">
+							   <li class="dropdown nav-item active">
+							     <a class="nav-link" href="#" data-toggle="dropdown">
+								  <span class="material-icons">notifications</span>
+								  <span class="notification">4</span>
+								 </a>
+								  <ul class="dropdown-menu">
+								     <li><a href="#">You Have 4 New Messages</a></li>
+									 <li><a href="#">You Have 4 New Messages</a></li>
+									 <li><a href="#">You Have 4 New Messages</a></li>
+									 <li><a href="#">You Have 4 New Messages</a></li>
+								  </ul>
+							   </li>
+							   
+							   <li class="nav-item">
+							     <a class="nav-link" href="#">
+								   <span class="material-icons">question_answer</span>
+								 </a>
+							   </li>
+							   
+							   <li class="dropdown nav-item">
+							     <a class="nav-link" href="#" data-toggle="dropdown">
+									<img src="C:\Users\user\Desktop\main\main\icon.jpg" id="uploadedImage"   style="width:40px; border-radius:50%;"/>
+									<span class="xp-user-live"></span>
+								   </a>
+									<ul class="dropdown-menu small-menu">
+									   <li><a href="index.html">
+									   <span class="material-icons">person_outline</span>
+									   Profile
+									   </a></li>
+									   <li><a href="#">
+									   <span class="material-icons">settings</span>
+									   Settings
+									   </a></li>
+									   
+									   <li><a href="signup.html">
+									   <span class="material-icons">logout</span>
+									   Logout
+									 </a></li>
+									 
+								  </ul>
+							   </li>
+							   
+							   
+							   </ul>
+							</nav>
+						 </div>
+					 </div>
+					 
+				 </div>
+				 
+				
+				 
+			 </div>
+		  </div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="max-w-7xl mx-auto p-6 lg:p-8">
-                <div class="flex justify-center">
-                    <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto bg-gray-100 dark:bg-gray-900">
-                        <path d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z" fill="#FF2D20"/>
-                    </svg>
-                </div>
-
-                <div class="mt-16">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                        <a href="https://laravel.com/docs" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Documentation</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <a href="https://laracasts.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laracasts</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <a href="https://laravel-news.com" class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Laravel News</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
-                                </p>
-                            </div>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                            </svg>
-                        </a>
-
-                        <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                            <div>
-                                <div class="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-7 h-7 stroke-red-500">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
-                                    </svg>
-                                </div>
-
-                                <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Vibrant Ecosystem</h2>
-
-                                <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Laravel's robust library of first-party tools and libraries, such as <a href="https://forge.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Forge</a>, <a href="https://vapor.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Vapor</a>, <a href="https://nova.laravel.com" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Nova</a>, and <a href="https://envoyer.io" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Envoyer</a> help you take your projects to the next level. Pair them with powerful open source libraries like <a href="https://laravel.com/docs/billing" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Cashier</a>, <a href="https://laravel.com/docs/dusk" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dusk</a>, <a href="https://laravel.com/docs/broadcasting" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Echo</a>, <a href="https://laravel.com/docs/horizon" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Horizon</a>, <a href="https://laravel.com/docs/sanctum" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Sanctum</a>, <a href="https://laravel.com/docs/telescope" class="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Telescope</a>, and more.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                        <div class="flex items-center gap-4">
-                            <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 dark:stroke-gray-600 group-hover:stroke-gray-600 dark:group-hover:stroke-gray-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                Sponsor
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+		  
+        
+		  <div class="container">
+			<div class="col-md-3">
+				<label>Choisir votre semestre</label>
+				<select class="form-control" id="cycle">
+					<option value="1">semestre 1</option>
+					<option value="2">semestre 2</option>
+					
+				</select>
+			</div>
+			<div class="col-md-3">
+				<label>Choisir votre filiere</label>
+				<select class="form-control" id="filiere">
+					<option value="1">informatique</option>
+					<option value="2">Ai</option>
+					<option value="3">Data</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+			<div id="moduleSelection">
+				
+					<label>Choisir votre module</label>
+					<select class="form-control" id="module" onchange="showActivityOptions()">
+						<option value="">Sélectionner</option>
+						<option value="1">Reseau</option>
+						<option value="2">Administration reseau</option>
+						<option value="3">Systeme d'exploitation</option>
+					</select>
+				</div>
+			</div>
+		
+			<div id="activitySelection" style="display:none;">
+				<div class="form-group">
+					<label for="activityType">Choisir le type d'activité</label>
+					<select class="form-control" id="activityType" onchange="showGroupOptions()">
+						<option value="">Sélectionner</option>
+						<option value="cours">Cours</option>
+						<option value="td">TD</option>
+						<option value="tp">TP</option>
+					</select>
+				</div>
+		
+				<div class="form-group" id="groupSelection" style="display:none;">
+					<label id="groupLabel">Choisir les groupes</label>
+					<div class="form-check" id="groupOptions">
+						<!-- Group checkboxes will be dynamically added here -->
+					</div>
+				</div>
+		
+				<div class="form-group">
+					<button type="button" class="btn btn-primary" onclick="addActivity()">Ajouter activité</button>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			const groupOptionsHTML = `
+				<div class="form-check">
+					<input class="form-check-input groupe" type="checkbox" id="groupe1" name="groupOptions" value="1">
+					<label class="form-check-label" for="groupe1">Groupe 1</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input groupe" type="checkbox" id="groupe2" name="groupOptions" value="2">
+					<label class="form-check-label" for="groupe2">Groupe 2</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input groupe" type="checkbox" id="groupe3" name="groupOptions" value="3">
+					<label class="form-check-label" for="groupe3">Groupe 3</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input groupe" type="checkbox" id="groupe4" name="groupOptions" value="4">
+					<label class="form-check-label" for="groupe4">Groupe 4</label>
+				</div>
+			`;
+		
+			function showActivityOptions() {
+				document.getElementById('activitySelection').style.display = 'block';
+			}
+		
+			function showGroupOptions() {
+				const activityType = document.getElementById('activityType').value;
+				if (activityType) {
+					document.getElementById('groupLabel').innerText = Choisir les groupes de ${activityType} que vous voulez;
+					document.getElementById('groupOptions').innerHTML = groupOptionsHTML;
+					document.getElementById('groupSelection').style.display = 'block';
+				} else {
+					document.getElementById('groupSelection').style.display = 'none';
+				}
+			}
+		
+			function addActivity() {
+				// Function to add activity
+				const activityType = document.getElementById('activityType').value;
+				if (activityType) {
+					const addMoreActivity = confirm("Voulez-vous ajouter une autre activité pour le même module?");
+					if (addMoreActivity) {
+						// Reset the activity form for the same module
+						document.getElementById('activityType').value = '';
+						document.getElementById('groupSelection').style.display = 'none';
+					} else {
+						const addMoreModule = confirm("Voulez-vous ajouter des activités pour un autre module?");
+						if (addMoreModule) {
+							// Reset the module and activity form for another module
+							document.getElementById('module').value = '';
+							document.getElementById('activityType').value = '';
+							document.getElementById('activitySelection').style.display = 'none';
+							document.getElementById('groupSelection').style.display = 'none';
+						} else {
+							alert("Informations ajoutées.");
+						}
+					}
+				}
+			}
+		</script>
+		
+		
+		
+		
+		</body>
+		</html>

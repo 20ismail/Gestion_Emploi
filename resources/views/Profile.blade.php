@@ -55,10 +55,9 @@
               </span>Home </a>
             </li> -->
 
-                <li class="">
-                    <a href="{{ route('home') }}" class=""><span <i
-                            class="fa-solid fa-house"></i>&nbsp;&nbsp;&nbsp;
-                        </span>Accueil</a>
+            <li class="">
+                <a href="{{ route('Home') }}" class=""><span  <i  class="fa-solid fa-house"></i>&nbsp;&nbsp;&nbsp;
+                </span>Accueil</a>
                 </li>
                 <li class="">
                     <a href="{{ route('profile') }}" class=""><span <i
@@ -151,9 +150,9 @@
 
                                         <li class="dropdown nav-item">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
-                                                @if(Auth::check() && Auth::user()->profileimage)
+                                                @if(Auth::check() && Auth::user()->image)
     <img id="uploadimage"
-         src="{{ asset('storage/' . Auth::user()->profileimage) }}"
+         src="{{ asset('storage/' . Auth::user()->image) }}"
          style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
 @else
     <img id="uploadimage"
@@ -230,18 +229,18 @@
 
                                                         <div class="card-body media align-items-center">
                                                             <div id="imagePreviewContainer" class="image-container">
-                                                                <img src="{{ asset('storage/' . Auth::user()->profileimage) }}" alt="Profile Image" style="width: 150px; height: 140px; object-fit: cover; border-radius: 50%;">
-                                                                <p style="width: 2px; height: 2px; object-fit: cover; border-radius: 50%;"> {{ asset('storage/' . Auth::user()->profileimage) }}</p>                                                            </div>
+                                                                <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="" style="width: 150px; height: 140px; object-fit: cover; border-radius: 50%;">
+                                                                <p style="width: 2px; height: 2px; object-fit: cover; border-radius: 50%;"> {{ asset('storage/' . Auth::user()->image) }}</p>                                                            </div>
                                                             <div class="media-body ml-4">
-                                                                <label for="profileimage" class="btn btn-outline-primary" >
+                                                                <label for="image" class="btn btn-outline-primary" >
                                                                     Upload new photo
                                                                 </label>
-                                                                <input type="file" id="profileimage" name="profileimage" class="account-settings-fileinput" style="display: none;" onchange="previewImage();">
+                                                                <input type="file" id="image" name="image" class="account-settings-fileinput" style="display: none;" onchange="previewImage();">
                                                             </div>
                                                         </div>
                                                         <script>
                                                             function previewImage() {
-                                                                var file = document.getElementById("profileimage").files[0];
+                                                                var file = document.getElementById("image").files[0];
                                                                 if (file) {
                                                                     var fileReader = new FileReader();
                                                         

@@ -56,4 +56,27 @@ use App\Http\Controllers\ProfesseurController;
 
 Route::post('/professeurs', [ProfesseurController::class, 'store']);
 use App\Http\Controllers\ModuleSelectController;
-Route::post('/module/store', [ModuleSelectController::class, 'store'])->name('module.store');
+use App\Http\Controllers\ModulePrefereController;
+
+Route::post('/module/store', [ModulePrefereController::class, 'store'])->name('module.store');
+
+Route::get('/activite', [ModulePrefereController::class, 'showActivities'])->name('activities');
+// Route::post('/module-prefere/store', [ModulePrefereController::class, 'store'])->name('moduleprefere.store');
+
+// Route pour afficher les activités ajoutées par le professeur
+// Route::get('/activities', [ModulePrefereController::class, 'showActivities'])->name('activities');
+use App\Http\Controllers\ModuleController;
+
+// routes/web.php
+
+
+Route::get('/getFilieres', [ModulePrefereController::class, 'getFilieres'])->name('getFilieres');
+Route::get('/getSemestres', [ModulePrefereController::class, 'getSemestres'])->name('getSemestres');
+Route::get('/getModules', [ModulePrefereController::class, 'getModules'])->name('getModules');
+Route::get('/getGroupes', [ModulePrefereController::class, 'getGroupes'])->name('getGroupes');
+Route::get('/get-groupes-rester', [ModulePrefereController::class, 'getGroupesRester'])->name('getGroupesRester');
+Route::get('/path-to-get-group-data', [ModulePrefereController::class, 'getGroupData'])->name('getGroupData');
+// Route::get('/calculateAndUpdateHours', [ModulePrefereController::class, 'calculateAndUpdateHours'])->name('calculateAndUpdateHours');
+Route::get('/fetch-activity-data/{type}', [ModulePrefereController::class, 'fetchData'])->name('fetchData');
+Route::post('/test/insert', [ModulePrefereController::class, 'insert'])->name('test.insert');
+Route::get('/test', [ModulePrefereController::class, 'test'])->name('test')->middleware('auth');

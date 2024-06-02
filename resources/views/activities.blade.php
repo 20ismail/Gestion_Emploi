@@ -4,10 +4,9 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <title>Disponobilite</title>
+    <title>Activities</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
@@ -26,18 +25,8 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/modul.css') }}">
-    <style>
-        #messageContainer p {
-            padding: 10px;
-            border: 1px solid #dcdcdc;
-            text-align: center;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            /* Horizontal offset, vertical offset, blur radius, color */
-        }
-    </style>
-
-</head>
-
+    <link rel="stylesheet" href="{{ asset('css/activite.css') }}">
+    </head>
 
 <body>
 
@@ -165,7 +154,11 @@
                                             </ul>
                                         </li>
 
-                                       
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <span class="material-icons">question_answer</span>
+                                            </a>
+                                        </li>
 
                                         <li class="dropdown nav-item">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
@@ -204,214 +197,77 @@
 
                 </div>
             </div>
-            <div class="container">
-                @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-                <form id="moduleForm" method="POST" action="{{ route('module.store') }}">
-                    @csrf
-                    <input type="hidden" id="professeur_id" name="professeur_id" value="{{ Auth::id() }}">
-                    <div id="messageContainer"></div>
-                    <div class="col-md-3">
-                        <label>Saisir votre heure annuelle</label>
-                        <input type="number" class="form-control" id="heureannee" name="heureannee" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Choisir votre semestre</label>
-                        <select class="form-control" id="semestre" name="semestre_id">
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Choisir votre filière</label>
-                        <select class="form-control" id="filiere" name="filiere_id" onchange="loadModules()">
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Choisir votre module</label>
-                        <select class="form-control" id="module" name="module_id" onchange="showActivityOptions()">
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    <div id="activitySelection" style="display:none;">
-                        <label for="activityType">Choisir le type d'activité</label>
-                        <select class="form-control" id="activityType" name="activity_type" onchange="updateActivityDetails()">
-                            <option value="">Sélectionner</option>
-                            <option value="cours">Cours</option>
-                            <option value="td">TD</option>
-                            <option value="tp">TP</option>
-                        </select>
-                        <div class="form-group">
-                            <label for="nbrGroupes">Nombre de Groupes:</label>
-                            <input type="number" class="form-control" id="nbrGroupes" name="nbr_groupes" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupesRester">Groupes Restants:</label>
-                            <input type="number" class="form-control" id="groupesRester" name="groupes_rester" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupes">Groupes:</label>
-                            <input type="number" class="form-control" id="groupes" name="groupes">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Ajouter activité</button>
-                    </div>
-                </form>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        loadFilieres();
-                        loadSemestres();
-                        loadModules();
-
+            <h1>Activities</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th> <!-- Column for checkboxes -->
+                        <th>Module</th>
+                        <th>Type d'activité</th>
+                        <th>Groupe</th>
+                        <th>Heure assigné</th>
+                        <th>Heure annee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($activities as $activity)
+    <tr>
+        <td><input type="checkbox" class="checkbox" name="delete[]" value="{{ $activity->id ?? '' }}"></td>
+        <td>{{ $activity->module_id ?? 'N/A' }}</td>
+        <td>{{ $activity->activity_type ?? 'N/A' }}</td>
+        <td>{{ $activity->groupes ?? 'N/A' }}</td>
+        <td>{{ $activity->heureassigne ?? 'N/A' }}</td>
+        <td>{{ $activity->heureannee ?? 'N/A' }}</td>
+    </tr>
+@endforeach
+                </tbody>
+            </table>
+            <button class="delete-btn" onclick="deleteSelected()">
+                <i class="fa fa-trash"></i>Supprimer
+            </button>
+            
+            <script>
+                function deleteSelected() {
+                    // JavaScript to handle delete operation
+                    var checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                    checkedBoxes.forEach(box => {
+                        box.closest('tr').remove();
                     });
-
-                    function loadFilieres() {
-                        fetch('{{ route('getFilieres') }}')
-                            .then(response => response.json())
-                            .then(data => {
-                                let filiereSelect = document.getElementById('filiere');
-                                data.forEach(filiere => {
-                                    let option = document.createElement('option');
-                                    option.value = filiere.id;
-                                    option.text = filiere.intitule_filiere;
-                                    filiereSelect.add(option);
-                                });
-                            })
-                            .catch(error => console.error('Error loading filieres:', error));
-                    }
-
-                    function loadSemestres() {
-                        fetch('{{ route('getSemestres') }}')
-                            .then(response => response.json())
-                            .then(data => {
-                                let semestreSelect = document.getElementById('semestre');
-                                data.forEach(semestre => {
-                                    let option = document.createElement('option');
-                                    option.value = semestre.id;
-                                    option.text = `Semestre ${semestre.numeroSemestre}`;
-                                    semestreSelect.add(option);
-                                });
-                            })
-                            .catch(error => console.error('Error loading semestres:', error));
-                    }
-
-                    function loadModules() {
-                        let filiereId = document.getElementById('filiere').value;
-                        fetch(`{{ route('getModules') }}?id_filiere=${filiereId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                let moduleSelect = document.getElementById('module');
-                                moduleSelect.innerHTML = '<option value="">Sélectionner</option>';
-                                data.forEach(module => {
-                                    let option = document.createElement('option');
-                                    option.value = module.id;
-                                    option.text = module.intitule_module;
-                                    moduleSelect.add(option);
-                                });
-                            })
-                            .catch(error => console.error('Error loading modules:', error));
-                    }
-
-                    function showActivityOptions() {
-                        document.getElementById('activitySelection').style.display = 'block';
-                    }
-
-                    function updateActivityDetails() {
-                        const activityType = document.getElementById('activityType').value;
-                        const nbrGroupesInput = document.getElementById('nbrGroupes');
-                        const groupesResterInput = document.getElementById('groupesRester');
-
-                        fetch(`/fetch-activity-data/${activityType}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                nbrGroupesInput.value = data.nbrGroupes || 0;
-                                groupesResterInput.value = data.groupesRester || 0;
-                            })
-                            .catch(error => console.error('Error fetching activity data:', error));
-                    }
-
-                    function addActivity(event) {
-                        event.preventDefault(); // Prevent the default form submission
-
-                        const nbrGroupes = parseInt(document.getElementById('nbrGroupes').value);
-                        const groupes = parseInt(document.getElementById('groupes').value);
-                        const groupesResterInput = document.getElementById('groupesRester');
-
-                        const groupesRester = nbrGroupes - groupes;
-                        groupesResterInput.value = groupesRester;
-                        console.log("Form validation result: ", validateForm());
-   console.log("NbrGroupes: ", nbrGroupes, " Groupes: ", groupes, " GroupesRester: ", groupesRester);
-                        if (validateForm()) {
-                            // If the form is valid, submit the form and show a success message
-                            var messageDiv = document.getElementById('messageContainer');
-                            messageDiv.innerHTML = '<p style="color: green;">Activité ajoutée avec succès!</p>';
-
-                            const form = document.getElementById('moduleForm');
-                            form.submit(); // Submit the form programmatically
-                        } else {
-                            // If the form is not valid, show an error message
-                            var messageDiv = document.getElementById('messageContainer');
-                            messageDiv.innerHTML = '<p style="color: red;">Erreur: Veuillez vérifier les données saisies.</p>';
-                        }
-                    }
-
-                    function validateForm() {
-                        // Example validation logic
-                        var isValid = true; // Assume form is valid
-                        var inputs = document.querySelectorAll('#moduleForm input'); // Adjust selector as needed
-
-                        inputs.forEach(input => {
-                            if (!input.value) { // Simple check for non-empty
-                                isValid = false;
-                            }
-                        });
-
-                        return isValid;
-                    }
-                 
-
-                </script>
-            </div>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-                integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-            </script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-            </script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-                integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-            </script>
-            <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
-            <script src="{{ asset('js/popper.min.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-            <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-            <script src="{{ asset('js/list.js') }}"></script>
-
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $(".xp-menubar").on('click', function() {
-                        $("#sidebar").toggleClass('active');
-                        $("#content").toggleClass('active');
-                    });
-
-                    $('.xp-menubar,.body-overlay').on('click', function() {
-                        $("#sidebar,.body-overlay").toggleClass('show-nav');
-                    });
-
-                });
+                }
             </script>
 
 
 
 
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+</script>
+<script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('js/list.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".xp-menubar").on('click', function() {
+            $("#sidebar").toggleClass('active');
+            $("#content").toggleClass('active');
+        });
+
+        $('.xp-menubar,.body-overlay').on('click', function() {
+            $("#sidebar,.body-overlay").toggleClass('show-nav');
+        });
+
+    });
+</script>
 </body>
 
 </html>

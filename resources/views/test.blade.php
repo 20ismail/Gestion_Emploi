@@ -214,55 +214,57 @@
         </ul>
     </div>
 @endif
-                <form id="moduleForm" method="POST" action="{{ route('module.store') }}">
-                    @csrf
-                    <input type="hidden" id="professeur_id" name="professeur_id" value="{{ Auth::id() }}">
-                    <div id="messageContainer"></div>
-                    <div class="col-md-3">
-                        <label>Saisir votre heure annuelle</label>
-                        <input type="number" class="form-control" id="heureannee" name="heureannee" required>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Choisir votre semestre</label>
-                        <select class="form-control" id="semestre" name="semestre_id">
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Choisir votre filière</label>
-                        <select class="form-control" id="filiere" name="filiere_id" onchange="loadModules()">
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Choisir votre module</label>
-                        <select class="form-control" id="module" name="module_id" onchange="showActivityOptions()">
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    <div id="activitySelection" style="display:none;">
-                        <label for="activityType">Choisir le type d'activité</label>
-                        <select class="form-control" id="activityType" name="activity_type" onchange="updateActivityDetails()">
-                            <option value="">Sélectionner</option>
-                            <option value="cours">Cours</option>
-                            <option value="td">TD</option>
-                            <option value="tp">TP</option>
-                        </select>
-                        <div class="form-group">
-                            <label for="nbrGroupes">Nombre de Groupes:</label>
-                            <input type="number" class="form-control" id="nbrGroupes" name="nbr_groupes" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupesRester">Groupes Restants:</label>
-                            <input type="number" class="form-control" id="groupesRester" name="groupes_rester" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="groupes">Groupes:</label>
-                            <input type="number" class="form-control" id="groupes" name="groupes">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Ajouter activité</button>
-                    </div>
-                </form>
+<form id="moduleForm" method="POST" action="{{ route('test.insert') }}">
+    @csrf
+    <input type="hidden" id="professeur_id" name="professeur_id" value="{{ Auth::id() }}">
+    <div id="messageContainer"></div>
+    <div class="col-md-3">
+        <label>Saisir votre heure annuelle</label>
+        <input type="number" class="form-control" id="heureannee" name="heureannee" required>
+    </div>
+    <div class="col-md-3">
+        <label>Choisir votre semestre</label>
+        <select class="form-control" id="semestre" name="semestre_id">
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label>Choisir votre filière</label>
+        <select class="form-control" id="filiere" name="filiere_id" onchange="loadModules()">
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+    <div class="col-md-3">
+        <label>Choisir votre module</label>
+        <select class="form-control" id="module" name="module_id" onchange="showActivityOptions()">
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+    <div id="activitySelection" style="display:none;">
+        <label for="activityType">Choisir le type d'activité</label>
+        <select class="form-control" id="activityType" name="activity_type" onchange="updateActivityDetails()">
+            <option value="">Sélectionner</option>
+            <option value="cours">Cours</option>
+            <option value="td">TD</option>
+            <option value="tp">TP</option>
+        </select>
+        <div class="form-group">
+            <label for="nbrGroupes">Nombre de Groupes:</label>
+            <input type="number" class="form-control" id="nbrGroupes" name="nbr_groupes" readonly>
+        </div>
+        <div class="form-group">
+            <label for="groupesRester">Groupes Restants:</label>
+            <input type="number" class="form-control" id="groupesRester" name="groupes_rester[]" readonly>
+        </div>
+        <div class="form-group">
+            <label for="groupes">Groupes:</label>
+            <div id="groupes">
+                <!-- Checkboxes will be populated dynamically -->
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter activité</button>
+    </div>
+</form>
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -324,59 +326,63 @@
                     }
 
                     function updateActivityDetails() {
-                        const activityType = document.getElementById('activityType').value;
-                        const nbrGroupesInput = document.getElementById('nbrGroupes');
-                        const groupesResterInput = document.getElementById('groupesRester');
+        const activityType = document.getElementById('activityType').value;
+        const nbrGroupesInput = document.getElementById('nbrGroupes');
+        const groupesResterInput = document.getElementById('groupesRester');
+        const groupesDiv = document.getElementById('groupes');
 
-                        fetch(`/fetch-activity-data/${activityType}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                nbrGroupesInput.value = data.nbrGroupes || 0;
-                                groupesResterInput.value = data.groupesRester || 0;
-                            })
-                            .catch(error => console.error('Error fetching activity data:', error));
-                    }
+        fetch(`/fetch-activity-data/${activityType}`)
+            .then(response => response.json())
+            .then(data => {
+                nbrGroupesInput.value = data.nbrGroupes || 0;
+                groupesResterInput.value = data.nbrGroupes || 0;
+                groupesDiv.innerHTML = '';
+                for (let i = 1; i <= data.nbrGroupes; i++) {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = 'groupes[]';
+                    checkbox.value = i;
+                    groupesDiv.appendChild(checkbox);
+                    groupesDiv.appendChild(document.createTextNode(` Groupe ${i}`));
+                    groupesDiv.appendChild(document.createElement('br'));
+                }
+            })
+            .catch(error => console.error('Error fetching activity data:', error));
+    }  document.getElementById('moduleForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
 
-                    function addActivity(event) {
-                        event.preventDefault(); // Prevent the default form submission
-
-                        const nbrGroupes = parseInt(document.getElementById('nbrGroupes').value);
-                        const groupes = parseInt(document.getElementById('groupes').value);
-                        const groupesResterInput = document.getElementById('groupesRester');
-
-                        const groupesRester = nbrGroupes - groupes;
-                        groupesResterInput.value = groupesRester;
-                        console.log("Form validation result: ", validateForm());
-   console.log("NbrGroupes: ", nbrGroupes, " Groupes: ", groupes, " GroupesRester: ", groupesRester);
-                        if (validateForm()) {
-                            // If the form is valid, submit the form and show a success message
-                            var messageDiv = document.getElementById('messageContainer');
-                            messageDiv.innerHTML = '<p style="color: green;">Activité ajoutée avec succès!</p>';
-
-                            const form = document.getElementById('moduleForm');
-                            form.submit(); // Submit the form programmatically
-                        } else {
-                            // If the form is not valid, show an error message
-                            var messageDiv = document.getElementById('messageContainer');
-                            messageDiv.innerHTML = '<p style="color: red;">Erreur: Veuillez vérifier les données saisies.</p>';
-                        }
-                    }
-
-                    function validateForm() {
-                        // Example validation logic
-                        var isValid = true; // Assume form is valid
-                        var inputs = document.querySelectorAll('#moduleForm input'); // Adjust selector as needed
-
-                        inputs.forEach(input => {
-                            if (!input.value) { // Simple check for non-empty
-                                isValid = false;
-                            }
-                        });
-
-                        return isValid;
-                    }
-                 
-
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('groupesRester').value = data.groupesRester;
+                document.getElementById('nbrGroupes').value = data.nbrGroupes;
+                // Update checkboxes if needed
+                const groupesDiv = document.getElementById('groupes');
+                groupesDiv.innerHTML = '';
+                for (let i = 1; i <= data.nbrGroupes; i++) {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = 'groupes[]';
+                    checkbox.value = i;
+                    groupesDiv.appendChild(checkbox);
+                    groupesDiv.appendChild(document.createTextNode(` Groupe ${i}`));
+                    groupesDiv.appendChild(document.createElement('br'));
+                }
+            } else {
+                // Handle validation errors
+                console.error('Validation errors:', data.errors);
+            }
+        })
+        .catch(error => console.error('Error submitting form:', error));
+    });
                 </script>
             </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Filiere extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'intitule_filiere',
+        'cycle',
+        'idDepartement',
+    ];
+
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class, 'idDepartement');
+    }
+
+   
 }

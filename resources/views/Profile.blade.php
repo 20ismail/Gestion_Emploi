@@ -76,6 +76,11 @@
                         </span>Module</a>
                 </li>
                 <li class="">
+                    <a href="{{ route('activities') }}" class=""><span <i
+                            class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
+                        </span>activite</a>
+                </li>
+                <li class="">
                     <a href="{{ route('emploi') }}" class=""><span <i
                             class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
                         </span>Emploi du temps</a>

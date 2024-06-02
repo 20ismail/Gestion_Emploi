@@ -77,6 +77,11 @@
                         </span>Module</a>
                 </li>
                 <li class="">
+                    <a href="{{ route('activities') }}" class=""><span <i
+                            class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
+                        </span>activite</a>
+                </li>
+                <li class="">
                     <a href="{{ route('emploi') }}" class=""><span <i
                             class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
                         </span>Emploi du temps</a>
@@ -159,8 +164,8 @@
                                         <li class="dropdown nav-item">
                                             <a class="nav-link" href="#" data-toggle="dropdown">
                                                 <img id="profileimage"
-                                                    src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('assets/icon.jpg') }}"
-                                                    style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                                                src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('assets/icon.jpg') }}"
+                                                style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
                                                 <span class="xp-user-live"></span>
                                             </a>
                                             <ul class="dropdown-menu small-menu">
@@ -255,35 +260,30 @@
                                             </thead>
                                             <tbody>
                                                 @foreach (['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'] as $day)
-                                                    @php
-                                                        $currentDispo =
-                                                            $disponibilites[$day]->firstWhere(
-                                                                'id_semestre',
-                                                                $semestre === 'semestre1' ? 1 : 2,
-                                                            ) ?? null;
-                                                    @endphp
-                                                    <tr>
-                                                        <td>{{ ucfirst($day) }}</td>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="matin{{ ucfirst($day) }}"
-                                                                    name="{{ $day }}[]" value="Matin"
-                                                                    {{ $currentDispo && $currentDispo->matin ? 'checked' : '' }}>
-                                                                <label class="form-check-label"
-                                                                    for="matin{{ ucfirst($day) }}">Matin</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="apresMidi{{ ucfirst($day) }}"
-                                                                    name="{{ $day }}[]" value="Après-midi"
-                                                                    {{ $currentDispo && $currentDispo->apres_midi ? 'checked' : '' }}>
-                                                                <label class="form-check-label"
-                                                                    for="apresMidi{{ ucfirst($day) }}">Après-midi</label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+    @php
+        $currentDispo = isset($disponibilites[$day]) ? 
+            $disponibilites[$day]->firstWhere('id_semestre', $semestre === 'semestre1' ? 1 : 2) : null;
+    @endphp
+    <tr>
+        <td>{{ ucfirst($day) }}</td>
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                    id="matin{{ ucfirst($day) }}"
+                    name="{{ $day }}[]" value="Matin"
+                    {{ $currentDispo && $currentDispo->matin ? 'checked' : '' }}>
+                <label class="form-check-label" for="matin{{ ucfirst($day) }}">Matin</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox"
+                    id="apresMidi{{ ucfirst($day) }}"
+                    name="{{ $day }}[]" value="Après-midi"
+                    {{ $currentDispo && $currentDispo->apres_midi ? 'checked' : '' }}>
+                <label class="form-check-label" for="apresMidi{{ ucfirst($day) }}">Après-midi</label>
+            </div>
+        </td>
+    </tr>
+@endforeach
                                             </tbody>
                                         </table>
                                     </div>

@@ -26,7 +26,25 @@
 
   </head>
   <body>
-  
+	<h1>Activities</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Type d'activité</th>
+                <th>Groupe</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($activities as $activity)
+                <tr>
+                    <td>{{ $activity->module }}</td>
+                    <td>{{ $activity->activity_type }}</td>
+                    <td>{{ $activity->groupes }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
 
 <div class="wrapper">

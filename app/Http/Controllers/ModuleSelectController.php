@@ -1,33 +1,39 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Moduleselect;
+use App\Models\ModuleSelect;
+use Illuminate\Support\Facades\DB;
 
 class ModuleSelectController extends Controller
 {
+    public function index()
+    {
+        return view('activite');
+    }
     public function store(Request $request)
     {
-        $request->validate([
-            'professeur_id' => 'required|exists:professeurs,id',
-            'semestre' => 'required|string',
-            'filiere' => 'required|string',
-            'module' => 'required|string',
-            'activity_type' => 'required|string',
-            'groupOptions' => 'nullable|array',
-        ]);
-
-        $moduleselect = new Moduleselect();
-        $moduleselect->professeur_id = $request->professeur_id;
-        $moduleselect->semestre = $request->semestre;
-        $moduleselect->filiere = $request->filiere;
-        $moduleselect->module = $request->module;
-        $moduleselect->activity_type = $request->activity_type;
-        $moduleselect->groupes = json_encode($request->groupOptions);
-        $moduleselect->save();
+        $moduleSelect = new ModuleSelect();
+        $moduleSelect->professeur_id = $request->professeur_id;
+        $moduleSelect->semestre = $request->semestre;
+        $moduleSelect->filiere = $request->filiere;
+        $moduleSelect->module = $request->module;
+        $moduleSelect->activity_type = $request->activity_type;
+        $moduleSelect->groupes = json_encode($request->groupOptions);
+        $moduleSelect->save();
 
         return redirect()->back()->with('success', 'Module ajouté avec succès');
+    }
+
+    public function showActivities()
+{
+    // Récupérer les modules, types d'activités et groupes ajoutés par le professeur
+    $activities = DB::table('moduleselect')
+        ->select('module', 'activity_type', 'groupes')
+        ->get();
+
+    // Passer les données à la vue
+    return view('activities', compact('activities'));
 }
-
-
 }

@@ -92,6 +92,11 @@
                         </span>Module</a>
                 </li>
                 <li class="">
+                    <a href="{{ route('activities') }}" class=""><span <i
+                            class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
+                        </span>activite</a>
+                </li>
+                <li class="">
                     <a href="{{ route('emploi') }}" class=""><span <i
                             class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
                         </span>Emploi du temps</a>
@@ -147,12 +152,12 @@
                                     <ul class="nav navbar-nav flex-row ml-auto">
                                         <!-- Example of a Blade view to display notifications -->
 										<li class="dropdown nav-item active">
-											<a class="nav-link" href="#" data-toggle="dropdown">
+											{{-- <a class="nav-link" href="#" data-toggle="dropdown">
 												<span class="material-icons">notifications</span>
 												<span class="notification">{{ Auth::user()->unreadNotifications->count() }}</span>
-											</a>
+											</a> --}}
 											<ul class="dropdown-menu">
-												@foreach (Auth::user()->unreadNotifications as $notification)
+												{{-- @foreach (Auth::user()->unreadNotifications as $notification)
 													<li>
 														<a href="#">
 															{{ $notification->data['message'] }}
@@ -164,7 +169,7 @@
 															Departement: {{ $notification->data['departement_name'] }}
 														</a>
 													</li>
-												@endforeach
+												@endforeach --}}
 											</ul>
 										</li>
 

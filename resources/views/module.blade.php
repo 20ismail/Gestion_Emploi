@@ -83,11 +83,7 @@
                             class="fa-solid fa-school"></i>&nbsp;&nbsp;&nbsp;
                         </span>Disponibilite </a>
                 </li>
-                <li class="">
-                    <a href="{{ route('module') }}" class=""><span <i
-                            class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
-                        </span>Module</a>
-                </li>
+               
                 <li class="">
                     <a href="{{ route('test') }}" class=""><span <i
                             class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;

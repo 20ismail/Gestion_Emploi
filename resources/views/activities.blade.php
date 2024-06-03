@@ -72,15 +72,11 @@
                             class="fa-solid fa-school"></i>&nbsp;&nbsp;&nbsp;
                         </span>Disponibilite </a>
                 </li>
-                <li class="">
-                    <a href="{{ route('module') }}" class=""><span <i
-                            class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
-                        </span>Module</a>
-                </li>
+                
                 <li class="">
                     <a href="{{ route('test') }}" class=""><span <i
                             class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
-                        </span>Test</a>
+                        </span>Module</a>
                 </li>
                 <li class="">
                     <a href="{{ route('activities') }}" class=""><span <i
@@ -198,43 +194,43 @@
                 </div>
             </div>
             <h1>Activities</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th></th> <!-- Column for checkboxes -->
-                        <th>Module</th>
-                        <th>Type d'activité</th>
-                        <th>Groupe</th>
-                        <th>Heure assigné</th>
-                        <th>Heure annee</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($activities as $activity)
-    <tr>
-        <td><input type="checkbox" class="checkbox" name="delete[]" value="{{ $activity->id ?? '' }}"></td>
-        <td>{{ $activity->module_id ?? 'N/A' }}</td>
-        <td>{{ $activity->activity_type ?? 'N/A' }}</td>
-        <td>{{ $activity->groupes ?? 'N/A' }}</td>
-        <td>{{ $activity->heureassigne ?? 'N/A' }}</td>
-        <td>{{ $activity->heureannee ?? 'N/A' }}</td>
-    </tr>
-@endforeach
-                </tbody>
-            </table>
-            <button class="delete-btn" onclick="deleteSelected()">
-                <i class="fa fa-trash"></i>Supprimer
-            </button>
-            
+            <form method="POST" action="{{ route('activities.delete') }}">
+                @csrf
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th> <!-- Column for checkboxes -->
+                            <th>Module</th>
+                            <th>Type d'activité</th>
+                            <th>Groupe</th>
+                            <th>Heure assigné</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($activities as $activity)
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="checkbox" name="delete[]" value="{{ isset($activity->id) ? $activity->id : '' }}">
+                            </td>
+                            <td>{{ $activity->module_id }}</td>
+                            <td>{{ $activity->activity_type }}</td>
+                            <td>{{ $activity->groupes }}</td>
+                            <td>{{ $activity->heureassigne }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <button type="submit" class="delete-btn">
+                    <i class="fa fa-trash"></i>Supprimer
+                </button>
+            </form>
             <script>
-                function deleteSelected() {
-                    // JavaScript to handle delete operation
-                    var checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                    checkedBoxes.forEach(box => {
-                        box.closest('tr').remove();
-                    });
-                }
-            </script>
+                document.querySelector('.delete-btn').addEventListener('click', function(event) {
+                    if (!confirm('Are you sure you want to delete the selected activities? This action cannot be undone.')) {
+                        event.preventDefault();
+                    }
+                });
+                </script>
 
 
 

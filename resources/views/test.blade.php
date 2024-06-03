@@ -83,15 +83,11 @@
                             class="fa-solid fa-school"></i>&nbsp;&nbsp;&nbsp;
                         </span>Disponibilite </a>
                 </li>
-                <li class="">
-                    <a href="{{ route('module') }}" class=""><span <i
-                            class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
-                        </span>Module</a>
-                </li>
+                
                 <li class="">
                     <a href="{{ route('test') }}" class=""><span <i
                             class="fa-solid fa-book"></i>&nbsp;&nbsp;&nbsp;
-                        </span>Test</a>
+                        </span>Module</a>
                 </li>
                 <li class="">
                     <a href="{{ route('activities') }}" class=""><span <i
@@ -220,7 +216,7 @@
     <div id="messageContainer"></div>
     <div class="col-md-3">
         <label>Saisir votre heure annuelle</label>
-        <input type="number" class="form-control" id="heureannee" name="heureannee" required>
+        <input type="number" class="form-control" id="heureannee" name="heureannee" value="{{ $professeur->heuresEnseignementAnnee }}" readonly required>
     </div>
     <div class="col-md-3">
         <label>Choisir votre semestre</label>
@@ -244,7 +240,7 @@
         <label for="activityType">Choisir le type d'activité</label>
         <select class="form-control" id="activityType" name="activity_type" onchange="updateActivityDetails()">
             <option value="">Sélectionner</option>
-            <option value="cours">Cours</option>
+            <option value="cours">cours</option>
             <option value="td">TD</option>
             <option value="tp">TP</option>
         </select>
@@ -254,7 +250,7 @@
         </div>
         <div class="form-group">
             <label for="groupesRester">Groupes Restants:</label>
-            <input type="number" class="form-control" id="groupesRester" name="groupes_rester[]" readonly>
+            <input type="number" class="form-control" id="groupesRester" name="groupes_rester" readonly>
         </div>
         <div class="form-group">
             <label for="groupes">Groupes:</label>
@@ -265,6 +261,7 @@
         <button type="submit" class="btn btn-primary">Ajouter activité</button>
     </div>
 </form>
+            </div>
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -324,65 +321,87 @@
                     function showActivityOptions() {
                         document.getElementById('activitySelection').style.display = 'block';
                     }
-
-                    function updateActivityDetails() {
-        const activityType = document.getElementById('activityType').value;
-        const nbrGroupesInput = document.getElementById('nbrGroupes');
-        const groupesResterInput = document.getElementById('groupesRester');
-        const groupesDiv = document.getElementById('groupes');
-
-        fetch(`/fetch-activity-data/${activityType}`)
-            .then(response => response.json())
-            .then(data => {
-                nbrGroupesInput.value = data.nbrGroupes || 0;
-                groupesResterInput.value = data.nbrGroupes || 0;
-                groupesDiv.innerHTML = '';
-                for (let i = 1; i <= data.nbrGroupes; i++) {
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = 'groupes[]';
-                    checkbox.value = i;
-                    groupesDiv.appendChild(checkbox);
-                    groupesDiv.appendChild(document.createTextNode(` Groupe ${i}`));
-                    groupesDiv.appendChild(document.createElement('br'));
+                    $(document).ready(function() {
+    $('#moduleForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'), // Use the form's action attribute
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                if(response.success) {
+                    $('#heureannee').val(response.newHeuresEnseignementAnnee); // Update the input field
+                    alert('Updated successfully');
+                } else {
+                    alert('Failed to update: ' + response.message); // Handle failure
                 }
-            })
-            .catch(error => console.error('Error fetching activity data:', error));
-    }  document.getElementById('moduleForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-
-        fetch(this.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error.message); // Provide error message
             }
-        })
+        });
+    });
+});
+                    function updateActivityDetails() {
+    const activityType = document.getElementById('activityType').value;
+    const nbrGroupesInput = document.getElementById('nbrGroupes');
+    const groupesResterInput = document.getElementById('groupesRester');
+    const groupesDiv = document.getElementById('groupes');
+
+    fetch(`/fetch-activity-data/${activityType}`)
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                document.getElementById('groupesRester').value = data.groupesRester;
-                document.getElementById('nbrGroupes').value = data.nbrGroupes;
-                // Update checkboxes if needed
-                const groupesDiv = document.getElementById('groupes');
-                groupesDiv.innerHTML = '';
-                for (let i = 1; i <= data.nbrGroupes; i++) {
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.name = 'groupes[]';
-                    checkbox.value = i;
-                    groupesDiv.appendChild(checkbox);
-                    groupesDiv.appendChild(document.createTextNode(` Groupe ${i}`));
-                    groupesDiv.appendChild(document.createElement('br'));
-                }
-            } else {
-                // Handle validation errors
-                console.error('Validation errors:', data.errors);
+            nbrGroupesInput.value = data.nbrGroupes || 0;
+            groupesResterInput.value = data.groupesRester || 0;
+            groupesDiv.innerHTML = '';
+            for (let i = 1; i <= data.groupesRester; i++) {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'groupes[]';
+                checkbox.value = i;
+                groupesDiv.appendChild(checkbox);
+                groupesDiv.appendChild(document.createTextNode(` Groupe ${i}`));
+                groupesDiv.appendChild(document.createElement('br'));
             }
         })
-        .catch(error => console.error('Error submitting form:', error));
-    });
+        .catch(error => console.error('Error fetching activity data:', error));
+}
+
+document.getElementById('moduleForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('groupesRester').value = data.groupesRester;
+            document.getElementById('nbrGroupes').value = data.nbrGroupes;
+            // Update checkboxes if needed
+            const groupesDiv = document.getElementById('groupes');
+            groupesDiv.innerHTML = '';
+            for (let i = 1; i <= data.groupesRester; i++) {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'groupes[]';
+                checkbox.value = i;
+                groupesDiv.appendChild(checkbox);
+                groupesDiv.appendChild(document.createTextNode(` Groupe ${i}`));
+                groupesDiv.appendChild(document.createElement('br'));
+            }
+        } else {
+            // Handle validation errors
+            console.error('Validation errors:', data.errors);
+        }
+    })
+    .catch(error => console.error('Error submitting form:', error));
+});
                 </script>
             </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

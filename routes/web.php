@@ -69,7 +69,6 @@ use App\Http\Controllers\ModuleController;
 
 // routes/web.php
 
-
 Route::get('/getFilieres', [ModulePrefereController::class, 'getFilieres'])->name('getFilieres');
 Route::get('/getSemestres', [ModulePrefereController::class, 'getSemestres'])->name('getSemestres');
 Route::get('/getModules', [ModulePrefereController::class, 'getModules'])->name('getModules');
@@ -80,3 +79,8 @@ Route::get('/path-to-get-group-data', [ModulePrefereController::class, 'getGroup
 Route::get('/fetch-activity-data/{type}', [ModulePrefereController::class, 'fetchData'])->name('fetchData');
 Route::post('/test/insert', [ModulePrefereController::class, 'insert'])->name('test.insert');
 Route::get('/test', [ModulePrefereController::class, 'test'])->name('test')->middleware('auth');
+Route::get('/get-rest-groupe', [ModulePrefereController::class, 'getRestGroupe'])->name('getRestGroupe');
+Route::get('/test', [ModulePrefereController::class, 'showForm'])->name('test')->middleware('auth');
+use App\Http\Controllers\ActiviteController;
+
+Route::post('/activities/delete', [ActiviteController::class, 'deleteActivities'])->name('activities.delete');

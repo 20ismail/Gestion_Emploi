@@ -13,41 +13,48 @@ use App\Models\Composant;
 use Illuminate\Support\Facades\Log;
 class ModulePrefereController extends Controller
 {
-    public function test()
-    {
-        return view('test'); 
-    }
+    public function showForm()
+{
+    $professeur = auth()->user(); // Get the authenticated Professeur
+    return view('test', ['professeur' => $professeur]);
+}
+    // public function test()
+    // {
+    //     return view('test'); 
+    // }
     public function insert(Request $request)
-    {
-        $validatedData = $request->validate([
-            'professeur_id' => 'required|exists:professeurs,id',
-            'semestre_id' => 'required|exists:semestres,id',
-            'filiere_id' => 'required|exists:filieres,id',
-            'module_id' => 'required|exists:modules,intitule_module',
-            'activity_type' => 'required|string',
-            'heureannee' => 'required|integer',
-            'nbr_groupes' => 'required|integer',
-            'groupes' => 'required|array',
-            'groupes.*' => 'integer',
-            'groupes_rester' => 'required|array',
-            'groupes_rester.*' => 'integer',
-        ]);
-    
-        $modulePrefere = new ModulePrefere();
-        $modulePrefere->professeur_id = $validatedData['professeur_id'];
-        $modulePrefere->semestre_id = $validatedData['semestre_id'];
-        $modulePrefere->filiere_id = $validatedData['filiere_id'];
-        $modulePrefere->module_id = $validatedData['module_id'];
-        $modulePrefere->activity_type = $validatedData['activity_type'];
-        $modulePrefere->heureannee = $validatedData['heureannee'];
-        $modulePrefere->groupes = count($validatedData['groupes']);
-        $modulePrefere->groupesRester = $validatedData['nbr_groupes'] - count($validatedData['groupes']);
-        $modulePrefere->save();
-    
-        // Update the remaining groups and assigned hours
-        // Calculate heureassigne based on activity_type
+{
+    $validatedData = $request->validate([
+        'professeur_id' => 'required|exists:professeurs,id',
+        'semestre_id' => 'required|exists:semestres,id',
+        'filiere_id' => 'required|exists:filieres,id',
+        'module_id' => 'required|exists:modules,id',
+        'activity_type' => 'required|string',
+        'heureannee' => 'required|integer',
+        'nbr_groupes' => 'required|integer',
+        'groupes' => 'required|array',
+        'groupes.*' => 'integer',
+    ]);
+
+    $modulePrefere = new ModulePrefere();
+    $modulePrefere->professeur_id = $validatedData['professeur_id'];
+    $modulePrefere->semestre_id = $validatedData['semestre_id'];
+    $modulePrefere->filiere_id = $validatedData['filiere_id'];
+    $modulePrefere->module_id = $validatedData['module_id'];
+    $modulePrefere->activity_type = $validatedData['activity_type'];
+    $modulePrefere->heureannee = $validatedData['heureannee'];
+    $modulePrefere->groupes = count($validatedData['groupes']);
+    $modulePrefere->groupesRester = $validatedData['nbr_groupes'] - count($validatedData['groupes']);
+    $modulePrefere->save();
+
+    // Update the remaining groups and assigned hours
     $module = Module::find($validatedData['module_id']);
-    if ($module) {
+    $professeur = Professeur::find($validatedData['professeur_id']);
+    
+    if ($module && $professeur) {
+        Log::info('Activity Type:', ['type' => $validatedData['activity_type']]);
+        Log::info('Module Details:', ['heuresCours' => $module->heuresCours, 'heuresTD' => $module->heuresTD, 'heuresTP' => $module->heuresTP]);
+    
         switch ($validatedData['activity_type']) {
             case 'cours':
                 $modulePrefere->heureassigne = $module->heuresCours * $modulePrefere->groupes;
@@ -62,22 +69,40 @@ class ModulePrefereController extends Controller
                 $modulePrefere->heureassigne = 0;
                 break;
         }
-
-        // Calculate total hours for the module
-        $totalHours = ($module->heuresCours + $module->heuresTD + $module->heuresTP);
-        $countIntitule = DB::table('composants')
-                           ->where('intitule', $module->intitule_module)
-                           ->count();
-        $totalHours *= $countIntitule;
-        $heureannee = $totalHours - $modulePrefere->heureassigne;
-        $modulePrefere->heureannee = $heureannee;
+    
+        Log::info('Calculated heureassigne:', ['heureassigne' => $modulePrefere->heureassigne]);
+    
+        // Calculate new heuresEnseignementAnnee
+        $newHeuresEnseignementAnnee = $professeur->heuresEnseignementAnnee - $modulePrefere->heureassigne;
+        Log::info('New heuresEnseignementAnnee:', ['newHeuresEnseignementAnnee' => $newHeuresEnseignementAnnee]);
+    
+        // Update Professeur's heuresEnseignementAnnee
+        $professeur->heuresEnseignementAnnee = $newHeuresEnseignementAnnee;
+        $professeur->save();
+    
+        $modulePrefere->save();
     }
+// Fetch and update the Composant
+$composant = Composant::where('idfiliere', $modulePrefere->filiere_id)
+->where('idsemestre', $modulePrefere->semestre_id)
+->where('intitule', $validatedData['activity_type'])
+->first();
 
-        return response()->json([
-            'success' => true,
-            'groupesRester' => $modulePrefere->groupesRester,
-            'nbrGroupes' => $validatedData['nbr_groupes']
-        ]);    }
+if ($composant) {
+$composant->RestGroupe = $modulePrefere->groupesRester;
+$composant->save();
+Log::info('Composant updated successfully', ['RestGroupe' => $composant->RestGroupe]);
+} else {
+Log::error('Composant not found or update failed');
+}
+
+ return response()->json([
+        'success' => true,
+        'newHeuresEnseignementAnnee' => $professeur->heuresEnseignementAnnee,
+        'groupesRester' => $modulePrefere->groupesRester,
+        'nbrGroupes' => $validatedData['nbr_groupes']
+    ]);
+}
     /*
      * Store a newly created module preference in storage.
      *
@@ -158,7 +183,7 @@ public function store(Request $request)
     {
         // Retrieve modules, activity types, and groups added by the professor
         $activities = DB::table('moduleprefere')
-            ->select('module_id', 'activity_type', 'groupes','heureassigne','heureannee')
+            ->select('id','module_id', 'activity_type', 'groupes','heureassigne','heureannee')
             ->get();
 
         // Pass the data to the view
@@ -262,11 +287,29 @@ public function fetchActivityTypes()
 public function fetchData($type)
 {
     $data = Composant::where('intitule', $type)->first();
+
+    if ($data) {
+        return response()->json([
+            'nbrGroupes' => $data->nbr_groupes,
+            'groupesRester' => $data->RestGroupe,
+        ]);
+    }
+
     return response()->json([
-        'nbrGroupes' => $data->nbr_groupes,
-        'groupesRester' => $data->groupes_rester ?? 0
+        'nbrGroupes' => 0,
+        'groupesRester' => 0,
     ]);
 }
+public function getRestGroupe(Request $request)
+{
+    $module_id = $request->module_id;
+    $composant = Composant::where('id', $module_id)->first();
 
+    if ($composant) {
+        return response()->json(['RestGroupe' => $composant->RestGroupe]);
+    }
+
+    return response()->json(['RestGroupe' => 0]);
+}
     
 }
